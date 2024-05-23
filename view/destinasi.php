@@ -35,6 +35,7 @@
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Destinasi Wisata Kreatif di Indonesia</h2>
+    <a class="btn btn-primary" href="?c=Destinasi&m=create_form">Tambah Destinasi</a>
     <div class="row">
         <?php
         if(!$destinasi->num_rows){

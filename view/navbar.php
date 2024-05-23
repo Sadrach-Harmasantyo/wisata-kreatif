@@ -31,19 +31,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="?c=Destinasi&m=index">Destinasi</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=Produk&m=index">Produk</a>
+                </li>
                 <?php if (isset($_SESSION['user_id'])) : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?c=User&m=logout">Logout</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?c=Post&m=create_form">Create Post</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="?c=Destinasi&m=create_form">Tambah Destinasi</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="?c=Produk&m=create_form">Tambah Produk</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Profile
@@ -53,6 +53,7 @@
                             <div class="dropdown-divider"></div>
                             <span class="dropdown-item-text w-100 text-truncate">Username: <?php echo $_SESSION['username'] ?></span>
                             <span class="dropdown-item-text w-100 text-truncate">Role: <?php echo $_SESSION['role'] ?></span>
+                            <a class="dropdown-item w-100 text-truncate" href="?c=User&m=logout">Logout</a>
                         </div>
                     </li>
 

@@ -24,16 +24,16 @@
                 <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
             </div>
             <div class="form-group">
-                <label for="lokasi">Lokasi:</label>
-                <input type="text" class="form-control" id="lokasi" name="lokasi" required>
-            </div>
-            <div class="form-group">
                 <label for="kategori">Kategori:</label>
                 <input type="text" class="form-control" id="kategori" name="kategori" required>
             </div>
             <div class="form-group">
-                <label for="gambar">Gambar:</label>
-                <input type="file" class="form-control-file" id="gambar" name="gambar" required>
+                <label for="harga">harga:</label>
+                <input type="text" class="form-control" id="harga" name="harga" required>
+            </div>
+            <div class="form-group">
+                <label for="upload_gambar">Gambar:</label>
+                <input type="file" class="form-control-file" id="upload_gambar" name="upload_gambar" required>
             </div>
             <button type="submit" class="btn btn-primary">Tambah Produk</button>
         </form>

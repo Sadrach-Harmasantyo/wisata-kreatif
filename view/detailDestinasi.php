@@ -40,20 +40,16 @@
                     <div class="card-body">
                         <h5 class="card-title">Peta Lokasi</h5>
                         <iframe src="https://maps.google.com/maps?q=Bali&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="200" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
                     </div>
+                    <!-- Tombol Edit -->
+                    <div class="text-center mt-3">
+                            <button class="btn btn-primary" onclick="window.location.href='?c=Destinasi&m=editDestinasi'">Edit Wisata</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-5">
-        <div class="container p-4">
-            <div class="text-center">
-                © 2024 Wisata Indonesia. All rights reserved.
-            </div>
-        </div>
-    </footer>
     <?php include 'footer.php'; ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -61,3 +57,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

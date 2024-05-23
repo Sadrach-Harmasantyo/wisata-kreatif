@@ -6,10 +6,15 @@ class ProdukModel extends Model
         $sql = "SELECT * from produk order by id desc";
         return $this->mysqli->query($sql);
     }
-    public function insert($nama, $deskripsi, $lokasi, $kategori, $gambar)
+    public function insert($nama, $deskripsi, $kategori, $harga, $gambar)
     {
-        $sql = "INSERT INTO produk (nama, deskripsi, lokasi, kategori, gambar) VALUES ('$nama', '$deskripsi', '$lokasi', '$kategori', '$gambar')";
-        $this->mysqli->query($sql);
+        $sql = "INSERT INTO produk (nama, deskripsi, kategori, harga, gambar) VALUES ('$nama', '$deskripsi', '$kategori', '$harga', '$gambar')";
+        $result = $this->mysqli->query($sql);
+        if ($result) {
+            echo 'Data inserted successfully'; // Debugging
+       } else {
+            echo 'Database insert error: ' . $this->mysqli->error; // Debugging
+       }
     }
 
     public function getById($id)
@@ -19,9 +24,9 @@ class ProdukModel extends Model
         return $this->mysqli->query($sql);
     }
 
-    public function update($id, $nama, $deskripsi, $lokasi, $kategori, $gambar)
+    public function update($id, $nama, $deskripsi, $harga, $kategori, $gambar)
      {
-          $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', lokasi = '$lokasi', kategori = '$kategori', gambar='$gambar' WHERE id = '$id'";
+          $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
           $this->mysqli->query($sql);
      }
 }

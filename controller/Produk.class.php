@@ -34,18 +34,61 @@ class Produk extends Controller
 
     public function create_process()
     {
-        $produkModel = $this->loadModel('ProdukModel');
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
         $nama = addslashes($_POST['nama']);
         $deskripsi = addslashes($_POST['deskripsi']);
-        $lokasi = addslashes($_POST['lokasi']);
         $kategori = addslashes($_POST['kategori']);
-        $gambar = addslashes($_POST['gambar']); // Assume the foto is uploaded as a string path
+        $harga = addslashes($_POST['harga']);
 
-        $produkModel->insert($nama, $deskripsi, $lokasi, $kategori, $gambar);
+        $imagePath = "";
 
-        $last_id = $this->mysqli->insert_id; // Get the ID of the newly inserted record
-        header("Location: ?c=Produk&m=confirm&id=$last_id");
+        $uploadDir = 'uploads/';
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        if (isset($_FILES['upload_gambar']) && $_FILES['upload_gambar']['error'] === UPLOAD_ERR_OK) {
+            $uploadFile = $uploadDir . basename($_FILES['upload_gambar']['name']);
+
+            if (move_uploaded_file($_FILES['upload_gambar']['tmp_name'], $uploadFile)) {
+                $imagePath = $uploadFile;
+            } else {
+                die('Upload failed.');
+            }
+        }
+
+        $user_id = $_SESSION['user_id'];
+
+        // $postModel = $this->loadModel('PostModel');
+        // $postModel->insert($title, $content, $imagePath, $user_id);
+
+        $destinasiModel = $this->loadModel('ProdukModel');
+        $destinasiModel->insert($nama, $deskripsi, $kategori, $harga, $imagePath);
+
+        header('Location: ?c=Produk');
         exit;
+    }
+
+    public function edit()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
+        $id = $_GET['id'];
+        if (!$id) header('Location: index.php?c=Produk');
+
+        $produkModel = $this->loadModel('ProdukModel');
+        $produk = $produkModel->getById($id)->fetch_object();
+
+        if ($_SESSION['role'] !== 'admin' && $produk->user_id != $_SESSION['user_id']) {
+            die('Unauthorized');
+        }
+
+        $this->loadView('edit_produk', ['produk' => $produk]);
     }
 
     public function confirm()

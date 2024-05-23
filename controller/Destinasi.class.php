@@ -90,4 +90,8 @@ class Destinasi extends Controller
 
         $this->loadView('confirm_destinasi', ['destinasi' => $destinasi->fetch_object()]);
     }
+
+    public function editDestinasi(){
+        $this->loadView('edit_destinasi');
+    }
 }
