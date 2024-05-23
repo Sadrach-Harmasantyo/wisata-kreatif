@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wisata Kreatif Indonesia</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         .hero {
             background: url('https://via.placeholder.com/1500x500') no-repeat center center;
@@ -13,18 +14,21 @@
             text-align: center;
             padding: 100px 0;
         }
+
         .section-title {
             margin: 40px 0;
         }
+
         .card img {
             height: 200px;
             object-fit: cover;
         }
     </style>
 </head>
+
 <body>
 
-        <?php include 'navbar.php' ?>
+    <?php include 'navbar.php' ?>
 
     <!-- Hero Section -->
     <div class="hero">
@@ -65,7 +69,7 @@
     </section>
 
     <!-- Statistics Section -->
-    <section class="bg-light py-5 text-center">
+    <section id="statistics" class="bg-light py-5 text-center h-100">
         <div class="container">
             <h2 class="section-title">Statistik</h2>
             <div class="row">
@@ -86,7 +90,7 @@
     </section>
 
     <!-- Popular Destinations Section -->
-    <section class="container text-center">
+    <section id="destinations" class="container text-center h-100">
         <h2 class="section-title">Destinasi Populer</h2>
         <div class="row">
             <div class="col-md-3">
@@ -129,7 +133,7 @@
     </section>
 
     <!-- Popular Creative Products Section -->
-    <section class="bg-light py-5 text-center">
+    <section id="products" class="bg-light py-5 text-center h-100">
         <div class="container">
             <h2 class="section-title">Produk Kreatif Populer</h2>
             <div class="row">
@@ -172,9 +176,11 @@
             </div>
         </div>
     </section>
+    <?php include 'footer.php'; ?>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
+
 </html>

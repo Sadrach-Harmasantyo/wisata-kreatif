@@ -13,8 +13,8 @@
 
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Tambah Destinasi Baru</h2>
-        <form action="?c=Destinasi&m=create_process" method="post" enctype="multipart/form-data">
+        <h2 class="mb-4">Tambah Produk</h2>
+        <form action="?c=Produk&m=create_process" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nama">Nama:</label>
                 <input type="text" class="form-control" id="nama" name="nama" required>
@@ -32,10 +32,10 @@
                 <input type="text" class="form-control" id="kategori" name="kategori" required>
             </div>
             <div class="form-group">
-                <label for="upload_gambar">Gambar:</label>
-                <input type="file" class="form-control-file" id="upload_gambar" name="upload_gambar" required>
+                <label for="gambar">Gambar:</label>
+                <input type="file" class="form-control-file" id="gambar" name="gambar" required>
             </div>
-            <button type="submit" class="btn btn-primary">Tambah Destinasi</button>
+            <button type="submit" class="btn btn-primary">Tambah Produk</button>
         </form>
     </div>
 
