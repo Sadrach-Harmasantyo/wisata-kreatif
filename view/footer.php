@@ -17,10 +17,13 @@
                 <div class="col-md-4">
                     <h5>Navigasi</h5>
                     <ul class="list-unstyled">
+                        <li><a href="#home">Beranda</a></li>
                         <li><a href="#services">Layanan Kami</a></li>
                         <li><a href="#statistics">Statistik</a></li>
                         <li><a href="#destinations">Destinasi Populer</a></li>
                         <li><a href="#products">Produk Kreatif</a></li>
+                        <li><a href="?c=Destinasi">Destinasi</a></li>
+                        <li><a href="?c=Produk">Produk</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">

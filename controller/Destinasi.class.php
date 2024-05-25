@@ -91,7 +91,96 @@ class Destinasi extends Controller
         $this->loadView('confirm_destinasi', ['destinasi' => $destinasi->fetch_object()]);
     }
 
-    public function editDestinasi(){
-        $this->loadView('edit_destinasi');
+    public function edit()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
+        $id = $_GET['id'];
+        if (!$id) header('Location: index.php?c=Destinasi');
+
+        $destinasiModel = $this->loadModel('DestinasiModel');
+        $destinasi = $destinasiModel->getById($id)->fetch_object();
+
+        if ($_SESSION['role'] !== 'admin') {
+            die('Unauthorized');
+        }
+
+        $this->loadView('edit_destinasi', ['destinasi' => $destinasi]);
     }
+
+    public function update()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
+        $id = $_POST['id'];
+        $destinasiModel = $this->loadModel('DestinasiModel');
+        $destinasi = $destinasiModel->getById($id)->fetch_object();
+
+        if ($_SESSION['role'] !== 'admin' && $destinasi->user_id != $_SESSION['user_id']) {
+            die('Unauthorized');
+        }
+
+
+        $nama = addslashes($_POST['nama']);
+        $deskripsi = addslashes($_POST['deskripsi']);
+        $aktivitas = addslashes($_POST['aktivitas']);
+        $fasilitas = addslashes($_POST['fasilitas']);
+        $alamat = addslashes($_POST['alamat']);
+        $telepon = addslashes($_POST['telepon']);
+        $email = addslashes($_POST['email']);
+        $lokasi = addslashes($_POST['lokasi']);
+
+        $imagePath = "";
+
+        $currentImagePath = $destinasi->gambar;
+
+        if (isset($_FILES['upload_gambar']) && $_FILES['upload_gambar']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'uploads/';
+            $uploadFile = $uploadDir . basename($_FILES['upload_gambar']['name']);
+
+            if (move_uploaded_file($_FILES['upload_gambar']['tmp_name'], $uploadFile)) {
+                $imagePath = $uploadFile;
+
+                if ($currentImagePath && file_exists($currentImagePath)) {
+                    unlink($currentImagePath);
+                }
+            } else {
+                die('Upload failed.');
+            }
+        }
+
+        $destinasiModel->update($id, $nama, $deskripsi, $aktivitas, $fasilitas, $alamat, $telepon, $email, $lokasi, $imagePath);
+        header('Location: ?c=Destinasi');
+    }
+
+    public function delete()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
+        $id = $_POST['id'];
+        $destinasiModel = $this->loadModel('DestinasiModel');
+        $destinasi = $destinasiModel->getById($id)->fetch_object();
+
+        if ($_SESSION['role'] !== 'admin' && $destinasi->user_id != $_SESSION['user_id']) {
+            die('Unauthorized');
+        }
+
+        $currentImagePath = $destinasi->gambar;
+
+        if ($currentImagePath && file_exists($currentImagePath)) {
+            unlink($currentImagePath);
+        }
+
+        $destinasiModel->delete($id);
+        header('Location: ?c=Destinasi');
+        exit;
+    }
+
+
 }

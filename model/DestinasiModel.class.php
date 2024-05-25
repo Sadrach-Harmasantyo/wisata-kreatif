@@ -25,4 +25,22 @@ class DestinasiModel extends Model
         $sql = "SELECT * FROM destinasi WHERE id = $id";
         return $this->mysqli->query($sql);
     }
+
+    public function update($id, $nama, $deskripsi, $aktivitas, $fasilitas, $alamat, $telepon, $email, $lokasi, $gambar = null)
+    {
+        //   $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
+        //   $this->mysqli->query($sql);
+        if ($gambar) {
+            $sql = "UPDATE destinasi SET nama = '$nama', deskripsi = '$deskripsi', aktivitas = '$aktivitas', fasilitas = '$fasilitas', alamat = '$alamat', telepon = '$telepon', email = '$email', lokasi = '$lokasi', gambar='$gambar' WHERE id = '$id'";
+        } else {
+            $sql = "UPDATE destinasi SET nama = '$nama', deskripsi = '$deskripsi', aktivitas = '$aktivitas', fasilitas = '$fasilitas', alamat = '$alamat', telepon = '$telepon', email = '$email', lokasi = '$lokasi' WHERE id = '$id'";
+        }
+        $this->mysqli->query($sql);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM destinasi WHERE id = $id";
+        $this->mysqli->query($sql);
+    }
 }

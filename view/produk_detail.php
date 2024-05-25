@@ -10,6 +10,13 @@
         #content {
             height: 100vh;
         }
+        .kategori {
+            padding: 4px 12px;
+            background-color: lightgray;
+            color: black;
+            border-radius: 16px;
+            width: fit-content;
+        }
     </style>
 </head>
 <body>
@@ -17,18 +24,18 @@
     <div id="content" class="container mt-5 h-screen">
         <div class="row">
             <div class="col-md-6">
-                <img src="<?php echo htmlspecialchars($produk->gambar); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($produk->nama); ?>">
+                <img src="<?php echo $produk->gambar; ?>" class="img-fluid" alt="<?php echo $produk->nama; ?>">
             </div>
             <div class="col-md-6">
-                <h2><?php echo htmlspecialchars($produk->nama); ?></h2>
-                <p class="text-muted"><?php echo htmlspecialchars($produk->kategori); ?></p>
-                <h4 class="text-primary">Rp. <?php echo number_format($produk->harga, 0, ',', '.'); ?></h4>
-                <p><?php echo nl2br(htmlspecialchars($produk->deskripsi)); ?></p>
+                <h2><?php echo $produk->nama; ?></h2>
+                <p class="kategori"><?php echo $produk->kategori; ?></p>
+                <h4 class="text-primary">Rp. <?php echo $produk->harga; ?></h4>
+                <p><?php echo $produk->deskripsi; ?></p>
 
+                <?php if ($_SESSION['role'] === 'admin'): ?>
                 <a href="?c=Produk&m=edit&id=<?php echo $produk->id; ?>" class="btn btn-primary">Edit</a>
+                <?php endif; ?>
 
-
-                <a href="delete_produk.php?id=<?php echo $produk->id; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
             </div>
         </div>
     </div>

@@ -84,11 +84,79 @@ class Produk extends Controller
         $produkModel = $this->loadModel('ProdukModel');
         $produk = $produkModel->getById($id)->fetch_object();
 
-        if ($_SESSION['role'] !== 'admin' && $produk->user_id != $_SESSION['user_id']) {
+        if ($_SESSION['role'] !== 'admin') {
             die('Unauthorized');
         }
 
         $this->loadView('edit_produk', ['produk' => $produk]);
+    }
+
+    public function update()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
+        $id = $_POST['id'];
+        $produkModel = $this->loadModel('ProdukModel');
+        $produk = $produkModel->getById($id)->fetch_object();
+
+        if ($_SESSION['role'] !== 'admin' && $produk->user_id != $_SESSION['user_id']) {
+            die('Unauthorized');
+        }
+
+
+        $nama = addslashes($_POST['nama']);
+        $deskripsi = addslashes($_POST['deskripsi']);
+        $kategori = addslashes($_POST['kategori']);
+        $harga = addslashes($_POST['harga']);
+
+        $imagePath = "";
+
+        $currentImagePath = $produk->gambar;
+
+        if (isset($_FILES['upload_gambar']) && $_FILES['upload_gambar']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'uploads/';
+            $uploadFile = $uploadDir . basename($_FILES['upload_gambar']['name']);
+
+            if (move_uploaded_file($_FILES['upload_gambar']['tmp_name'], $uploadFile)) {
+                $imagePath = $uploadFile;
+
+                if ($currentImagePath && file_exists($currentImagePath)) {
+                    unlink($currentImagePath);
+                }
+            } else {
+                die('Upload failed.');
+            }
+        }
+
+        $produkModel->update($id, $nama, $deskripsi, $kategori, $harga, $imagePath);
+        header('Location: ?c=Produk');
+    }
+
+    public function delete()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Unauthorized');
+        }
+
+        $id = $_POST['id'];
+        $produkModel = $this->loadModel('ProdukModel');
+        $produk = $produkModel->getById($id)->fetch_object();
+
+        if ($_SESSION['role'] !== 'admin' && $produk->user_id != $_SESSION['user_id']) {
+            die('Unauthorized');
+        }
+
+        $currentImagePath = $produk->gambar;
+
+        if ($currentImagePath && file_exists($currentImagePath)) {
+            unlink($currentImagePath);
+        }
+
+        $produkModel->delete($id);
+        header('Location: ?c=Produk');
+        exit;
     }
 
     public function confirm()

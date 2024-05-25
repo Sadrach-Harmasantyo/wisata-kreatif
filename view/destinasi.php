@@ -14,6 +14,10 @@
         .card-body {
             height: 150px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
         }
         .card-body p {
             margin-bottom: 0;
@@ -36,28 +40,26 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Destinasi Wisata Kreatif di Indonesia</h2>
     <a class="btn btn-primary" href="?c=Destinasi&m=create_form">Tambah Destinasi</a>
-    <div class="row">
+    <div class="d-flex flex-wrap gap-4">
         <?php
         if(!$destinasi->num_rows){
             echo '<p class="text-center">Tidak ada destinasi wisata yang tersedia.</p>';
         }
         else{
-            echo "<div class='col-md-4 mb-4'>";
             while($row = $destinasi->fetch_object()){
                 echo "
-                <div class='card'>
+                <div class='card w-25'>
                     <img src='$row->gambar' class='card-img-top' alt='$row->gambar'>
                     <div class='card-body'>
-                        <h5 class='card-title'>$row->lokasi</h5>
+                        <h5 class='card-title'>$row->nama</h5>
                         <p class='card-text'>" . implode(' ', array_slice(explode(' ', $row->deskripsi), 0, 10)) . "...</p>
+                        <p class='card-text'>Alamat : $row->alamat</p>
                     </div>
                     <div class='card-footer'>
                         <a href='?c=destinasi&m=detail&id=$row->id' class='btn btn-primary'>Lihat Detail</a>
                     </div>
-                </div>
-            </div>";
+                </div>";
             }
-            echo "</div>";
         }
         
         

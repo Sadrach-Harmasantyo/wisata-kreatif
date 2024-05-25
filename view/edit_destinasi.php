@@ -9,55 +9,63 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <?php include 'navbar.php'; ?>
-
     <!-- Edit Detail Destinasi -->
     <div class="container mt-5">
-        <h1 class="display-4 text-center">Edit Detail Destinasi - Pulau Bali</h1>
-        <form action="proses_edit.php" method="POST">
+        <h1 class="display-4 text-center">Edit Detail Destinasi</h1>
+        <form action="?c=Destinasi&m=update" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $destinasi->id; ?>" />
             <div class="form-group">
                 <label for="namaDestinasi">Nama Destinasi</label>
-                <input type="text" class="form-control" id="namaDestinasi" name="namaDestinasi" value="Pulau Bali" required>
+                <input type="text" class="form-control" id="namaDestinasi" name="nama" value="<?php echo $destinasi->nama; ?>" required>
             </div>
             <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required>Bali, juga dikenal sebagai Pulau Dewata, adalah salah satu destinasi wisata terpopuler di Indonesia. Pulau ini terkenal dengan pantai-pantainya yang indah, budaya yang kaya, dan pemandangan alam yang menakjubkan.</textarea>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required><?php echo $destinasi->deskripsi; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="aktivitas">Aktivitas</label>
-                <textarea class="form-control" id="aktivitas" name="aktivitas" rows="3" required>Berselancar di Pantai Kuta
-Menjelajah Pura Besakih
-Menyelam di Tulamben
-Mengunjungi Ubud Monkey Forest</textarea>
+                <textarea class="form-control" id="aktivitas" name="aktivitas" rows="3" required><?php echo $destinasi->aktivitas; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="fasilitas">Fasilitas</label>
-                <textarea class="form-control" id="fasilitas" name="fasilitas" rows="3" required>Bali menawarkan berbagai fasilitas mulai dari hotel mewah, restoran internasional, hingga pusat perbelanjaan modern.</textarea>
+                <textarea class="form-control" id="fasilitas" name="fasilitas" rows="3" required><?php echo $destinasi->fasilitas; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <input type="text" class="form-control" id="alamat" name="alamat" value="Jl. Raya Kuta, Bali, Indonesia" required>
+                <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo $destinasi->alamat; ?>" required>
             </div>
             <div class="form-group">
                 <label for="telepon">Telepon</label>
-                <input type="text" class="form-control" id="telepon" name="telepon" value="+62 123 4567" required>
+                <input type="text" class="form-control" id="telepon" name="telepon" value="<?php echo $destinasi->telepon; ?>" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="info@wisata-bali.com" required>
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo $destinasi->email; ?>" required>
             </div>
             <div class="form-group">
                 <label for="petaLokasi">Peta Lokasi (Embed URL)</label>
-                <input type="text" class="form-control" id="petaLokasi" name="petaLokasi" value="https://maps.google.com/maps?q=Bali&t=&z=13&ie=UTF8&iwloc=&output=embed" required>
+                <input type="text" class="form-control" id="petaLokasi" name="lokasi" value="<?php echo $destinasi->lokasi; ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Gambar Destinasi Sekarang:</label>
+                <?php if (!empty($destinasi->gambar)) : ?>
+                    <img src="<?php echo $destinasi->gambar; ?>" width="300" height="300"><br>
+                <?php endif; ?>
+            </div>
+            <div class="form-group">
+                <label for="upload_gambar">Upload Gambar Destinasi Baru:</label>
+                <input type="file" class="form-control-file" id="upload_gambar" name="upload_gambar" />
             </div>
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#konfirmasiHapus">Hapus Destinasi</button>
+        </form>
+        <form action="?c=Destinasi&m=delete" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo $destinasi->id; ?>">
+            <input class="btn btn-danger" type="submit" value="Delete">
         </form>
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="konfirmasiHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="konfirmasiHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -78,9 +86,7 @@ Mengunjungi Ubud Monkey Forest</textarea>
                 </div>
             </div>
         </div>
-    </div>
-
-    <?php include 'footer.php'; ?>
+    </div> -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

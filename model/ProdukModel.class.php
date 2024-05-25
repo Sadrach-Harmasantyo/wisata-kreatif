@@ -12,9 +12,9 @@ class ProdukModel extends Model
         $result = $this->mysqli->query($sql);
         if ($result) {
             echo 'Data inserted successfully'; // Debugging
-       } else {
+        } else {
             echo 'Database insert error: ' . $this->mysqli->error; // Debugging
-       }
+        }
     }
 
     public function getById($id)
@@ -24,9 +24,21 @@ class ProdukModel extends Model
         return $this->mysqli->query($sql);
     }
 
-    public function update($id, $nama, $deskripsi, $harga, $kategori, $gambar)
-     {
-          $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
-          $this->mysqli->query($sql);
-     }
+    public function update($id, $nama, $deskripsi, $kategori, $harga, $gambar = null)
+    {
+        //   $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
+        //   $this->mysqli->query($sql);
+        if ($gambar) {
+            $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
+        } else {
+            $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga' WHERE id = '$id'";
+        }
+        $this->mysqli->query($sql);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM produk WHERE id = $id";
+        $this->mysqli->query($sql);
+    }
 }
