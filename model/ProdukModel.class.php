@@ -6,6 +6,14 @@ class ProdukModel extends Model
         $sql = "SELECT * from produk order by id desc";
         return $this->mysqli->query($sql);
     }
+
+    public function search($query)
+    {
+        $sql = "SELECT * FROM produk WHERE nama LIKE '%$query%' OR deskripsi LIKE '%$query%' OR kategori LIKE '%$query%'";
+        return $this->mysqli->query($sql);
+    }
+
+
     public function insert($nama, $deskripsi, $kategori, $harga, $gambar)
     {
         $sql = "INSERT INTO produk (nama, deskripsi, kategori, harga, gambar) VALUES ('$nama', '$deskripsi', '$kategori', '$harga', '$gambar')";

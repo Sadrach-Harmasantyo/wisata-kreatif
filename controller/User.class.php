@@ -75,18 +75,36 @@ class User extends Controller
 
         $userModel = $this->loadModel('UserModel');
         $id = $_SESSION['user_id'];
-        $username = addslashes($_POST['username']);
-        // $email = addslashes($_POST['email']);
 
-        // If password field is filled, update the password as well
-        if (!empty($_POST['password'])) {
-            // $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $password = $_POST['password'];
-            $userModel->update($id, $username, $password);
-        } else {
-            $userModel->update($id, $username);
+        $currentUser = $userModel->getById($id)->fetch_object();
+
+        // Menggunakan username lama jika input username kosong
+        $username = !empty($_POST['username']) ? addslashes($_POST['username']) : $currentUser->username;
+
+        // Menggunakan password baru jika diisi, atau null jika kosong
+        $password = !empty($_POST['password']) ? addslashes($_POST['password']) :  $currentUser->password;
+
+        // Path gambar saat ini
+        $currentImagePath = $currentUser->gambar;
+        $imagePath = $currentImagePath;
+
+        // Handle file upload
+        if (isset($_FILES['upload_gambar']) && $_FILES['upload_gambar']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'uploads/';
+            $uploadFile = $uploadDir . basename($_FILES['upload_gambar']['name']);
+            if (move_uploaded_file($_FILES['upload_gambar']['tmp_name'], $uploadFile)) {
+                // Hapus gambar lama jika berbeda dengan yang baru
+                if ($currentImagePath && $currentImagePath !== $uploadFile) {
+                    if (file_exists($currentImagePath)) {
+                        unlink($currentImagePath);
+                    }
+                }
+                $imagePath = $uploadFile;
+            }
         }
 
+        // Update data pengguna
+        $userModel->update($id, $username, $password, $imagePath);
         $_SESSION['username'] = $username;
 
         header('Location: ?c=User&m=profile');

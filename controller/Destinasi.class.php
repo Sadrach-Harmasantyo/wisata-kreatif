@@ -7,6 +7,37 @@ class Destinasi extends Controller
         $destinasiModel = $this->loadModel('DestinasiModel');
         $destinasi = $destinasiModel->getAll();
         $this->loadView('destinasi', ['destinasi' => $destinasi]);
+
+
+        // $destinasiModel = $this->loadModel('DestinasiModel');
+
+        // // Ambil parameter pencarian dari URL
+        // $search = isset($_GET['search']) ? addslashes($_GET['search']) : '';
+
+        // if ($search) {
+        //     $destinasi = $destinasiModel->searchDestinasi($search);
+        // } else {
+        //     $destinasi = $destinasiModel->getAll();
+        // }
+
+        // $this->loadView('destinasi', ['destinasi' => $destinasi]);
+    }
+
+    public function search()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
+            $search = addslashes($_POST['query']);
+            $destinasiModel = $this->loadModel('DestinasiModel');
+            $results = $destinasiModel->searchDestinasi($search);
+            $data = [];
+            while ($row = $results->fetch_object()) {
+                $data[] = $row;
+            }
+            echo json_encode($data);
+        } else {
+            http_response_code(400);
+            echo json_encode(['message' => 'Invalid request']);
+        }
     }
 
     public function detail()
@@ -40,8 +71,12 @@ class Destinasi extends Controller
 
         $nama = addslashes($_POST['nama']);
         $deskripsi = addslashes($_POST['deskripsi']);
+        $aktivitas = addslashes($_POST['aktivitas']);
+        $fasilitas = addslashes($_POST['fasilitas']);
+        $alamat = addslashes($_POST['alamat']);
+        $telepon = addslashes($_POST['telepon']);
+        $email = addslashes($_POST['email']);
         $lokasi = addslashes($_POST['lokasi']);
-        $kategori = addslashes($_POST['kategori']);
 
         $imagePath = "";
 
@@ -66,7 +101,7 @@ class Destinasi extends Controller
         // $postModel->insert($title, $content, $imagePath, $user_id);
 
         $destinasiModel = $this->loadModel('DestinasiModel');
-        $destinasiModel->insert($nama, $deskripsi, $lokasi, $kategori, $imagePath);
+        $destinasiModel->insert($nama, $deskripsi, $aktivitas, $fasilitas, $alamat, $telepon, $email, $lokasi, $imagePath);
 
         header('Location: ?c=Destinasi');
         exit;
@@ -181,6 +216,4 @@ class Destinasi extends Controller
         header('Location: ?c=Destinasi');
         exit;
     }
-
-
 }

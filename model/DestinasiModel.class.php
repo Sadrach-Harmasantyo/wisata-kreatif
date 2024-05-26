@@ -8,9 +8,15 @@ class DestinasiModel extends Model
         //  $sql = "SELECT post.*, users.username FROM post JOIN users ON post.user_id = users.id";
         //  return $this->mysqli->query($sql);
     }
-    public function insert($nama, $deskripsi, $lokasi, $kategori, $gambar)
+
+    public function searchDestinasi($search)
     {
-        $sql = "INSERT INTO destinasi (nama, deskripsi, lokasi, kategori, gambar) VALUES ('$nama', '$deskripsi', '$lokasi', '$kategori', '$gambar')";
+        $sql = "SELECT * FROM destinasi WHERE nama LIKE '%$search%' OR deskripsi LIKE '%$search%' OR aktivitas LIKE '%$search%' OR fasilitas LIKE '%$search%' OR alamat LIKE '%$search%' OR telepon LIKE '%$search%' OR email LIKE '%$search%' OR lokasi LIKE '%$search%'  ORDER BY id DESC";
+        return $this->mysqli->query($sql);
+    }
+    public function insert($nama, $deskripsi, $aktivitas, $fasilitas, $alamat, $telepon, $email, $lokasi, $gambar)
+    {
+        $sql = "INSERT INTO destinasi (nama, deskripsi, aktivitas, fasilitas, alamat, telepon, email, lokasi, gambar) VALUES ('$nama', '$deskripsi', '$aktivitas', '$fasilitas', '$alamat', '$telepon', '$email', '$lokasi', '$gambar')";
         $result = $this->mysqli->query($sql);
         if ($result) {
              echo 'Data inserted successfully'; // Debugging

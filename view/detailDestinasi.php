@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h1 class="display-4"><?php echo $destinasi->nama; ?></h1>
-                <img src="<?php echo $destinasi->gambar; ?>" alt="Pulau Bali">
+                <img src="<?php echo $destinasi->gambar; ?>" alt="Pulau Bali" class="img-fluid">
                 <p class="lead"><?php echo $destinasi->deskripsi; ?></p>
                 <h3>Aktivitas</h3>
                 <!-- <ul>

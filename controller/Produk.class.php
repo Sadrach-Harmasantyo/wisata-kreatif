@@ -4,10 +4,32 @@ class Produk extends Controller
 
     public function index()
     {
+        // $produkModel = $this->loadModel('ProdukModel');
+        // $produk = $produkModel->getAll();
+        // $this->loadView('produk', ['produk' => $produk]);
+
         $produkModel = $this->loadModel('ProdukModel');
-        $produk = $produkModel->getAll();
+
+        // Ambil parameter pencarian dari URL
+        $search = isset($_GET['search']) ? addslashes($_GET['search']) : '';
+
+        if ($search) {
+            $produk = $produkModel->search($search);
+        } else {
+            $produk = $produkModel->getAll();
+        }
+
         $this->loadView('produk', ['produk' => $produk]);
     }
+
+    // public function search()
+    // {
+    //     $query = isset($_GET['q']) ? addslashes($_GET['q']) : '';
+    //     $produkModel = $this->loadModel('ProdukModel');
+    //     $produk = $produkModel->search($query);
+    //     $this->loadView('produk', ['produk' => $produk]);
+    // }
+
 
     public function detail()
     {
@@ -68,7 +90,7 @@ class Produk extends Controller
         $destinasiModel = $this->loadModel('ProdukModel');
         $destinasiModel->insert($nama, $deskripsi, $kategori, $harga, $imagePath);
 
-        header('Location: ?c=Produk');
+        header('Location: ?c=Produk#produk-list');
         exit;
     }
 
@@ -131,7 +153,7 @@ class Produk extends Controller
         }
 
         $produkModel->update($id, $nama, $deskripsi, $kategori, $harga, $imagePath);
-        header('Location: ?c=Produk');
+        header('Location: ?c=Produk#produk-list');
     }
 
     public function delete()
@@ -155,7 +177,7 @@ class Produk extends Controller
         }
 
         $produkModel->delete($id);
-        header('Location: ?c=Produk');
+        header('Location: ?c=Produk#produk-list');
         exit;
     }
 

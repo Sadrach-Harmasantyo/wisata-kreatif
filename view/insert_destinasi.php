@@ -1,6 +1,3 @@
-<?php include 'navbar.php'; ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +11,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Tambah Destinasi Baru</h2>
-        <form action="?c=Destinasi&m=create_process" method="post" enctype="multipart/form-data">
+        <!-- <form action="?c=Destinasi&m=create_process" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nama">Nama:</label>
                 <input type="text" class="form-control" id="nama" name="nama" required>
@@ -36,6 +33,45 @@
                 <input type="file" class="form-control-file" id="upload_gambar" name="upload_gambar" required>
             </div>
             <button type="submit" class="btn btn-primary">Tambah Destinasi</button>
+        </form> -->
+        <form action="?c=Destinasi&m=create_process" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="namaDestinasi">Nama Destinasi</label>
+                <input type="text" class="form-control" id="namaDestinasi" name="nama" required>
+            </div>
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="aktivitas">Aktivitas</label>
+                <textarea class="form-control" id="aktivitas" name="aktivitas" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="fasilitas">Fasilitas</label>
+                <textarea class="form-control" id="fasilitas" name="fasilitas" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" required>
+            </div>
+            <div class="form-group">
+                <label for="telepon">Telepon</label>
+                <input type="text" class="form-control" id="telepon" name="telepon" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="petaLokasi">Peta Lokasi (Embed URL)</label>
+                <input type="text" class="form-control" id="petaLokasi" name="lokasi" required>
+            </div>
+            <div class="form-group">
+                <label for="upload_gambar">Upload Gambar</label>
+                <input type="file" class="form-control-file" id="upload_gambar" name="upload_gambar" required/>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </form>
     </div>
 

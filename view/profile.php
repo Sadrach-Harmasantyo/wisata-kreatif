@@ -34,24 +34,24 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="profile-card">
-          <img src="https://via.placeholder.com/150" alt="Foto Profil" class="profile-image">
-          <h3 class="username"><?php echo $_SESSION['username']; ?></h3>
-          <p class="role"><?php echo $_SESSION['role']; ?></p>
+          <img src="<?php echo $user->gambar? $user->gambar : 'https://via.placeholder.com/150'; ?>" alt="Foto Profil" class="profile-image">
+          <h3 class="username"><?php echo $user->username; ?></h3>
+          <p class="role"><?php echo $user->role; ?></p>
           <button class="btn edit-profile-btn" data-toggle="collapse" href="#editProfileForm" role="button" aria-expanded="false" aria-controls="editProfileForm">Edit Profile</button>
           <div class="collapse mt-4" id="editProfileForm">
             <div class="card card-body">
               <form action="?c=User&m=update_profile" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="editUsername">Edit Username</label>
-                  <input type="text" class="form-control" id="editUsername" placeholder="Username Baru">
+                  <input type="text" name="username" class="form-control" id="editUsername" placeholder="Username Baru">
                 </div>
                 <div class="form-group">
                   <label for="editPassword">Edit Password</label>
-                  <input type="password" class="form-control" id="editPassword" placeholder="Password Baru">
+                  <input type="password" name="password" class="form-control" id="editPassword" placeholder="Password Baru">
                 </div>
                 <div class="form-group">
                   <label for="editPassword">Ganti Gambar</label>
-                  <input type="file" class="form-control-file" id="editImage">
+                  <input name="upload_gambar" type="file" class="form-control-file" id="editImage">
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </form>
