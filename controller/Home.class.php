@@ -1,17 +1,11 @@
 <?php
-// class Home extends Controller // Ubah nama kelas menjadi 'Home'
+// class Home extends Controller
 // {
-
-//     public function index() // Pastikan nama metode tetap 'index'
+//     public function index()
 //     {
-//         // Load model (Jika diperlukan)
-//         // $homeModel = $this->loadModel('HomeModel');
-
-//         // Get data from the model (Jika diperlukan)
-//         // $data = $homeModel->getData();
-
-//         // Load the view
-//         $this->loadView('home'); // Ubah nama view menjadi 'home'
+//         $postModel = $this->loadModel('PostModel');
+//         $posts = $postModel->getAll();
+//         $this->loadView('home', ['posts' => $posts]);
 //     }
 // }
 
@@ -19,9 +13,11 @@ class Home extends Controller
 {
     public function index()
     {
-        $postModel = $this->loadModel('PostModel');
-        $posts = $postModel->getAll();
-        $this->loadView('home', ['posts' => $posts]);
+        $destinasiModel = $this->loadModel('DestinasiModel');
+        $destinasi = $destinasiModel->getAll();
+        $produkModel = $this->loadModel('ProdukModel');
+        $produk = $produkModel->getAll();
+        $this->loadView('home', ['destinasi' => $destinasi, 'produk' => $produk]);
     }
 }
 ?>

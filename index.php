@@ -1,21 +1,4 @@
 <?php
-// session_start();
-// error_reporting(~E_NOTICE);
-
-// // 'Home' is the default controller 
-// $controller = $_GET['c'] ?? 'Post';
-// // 'index' is the default method 
-// $method = $_GET['m'] ?? 'index';
-
-// include_once "controller/Controller.class.php";
-// include_once "controller/$controller.class.php";
-
-// if (!isset($_SESSION['user_id']) && $controller != 'User') {
-//     header('Location: index.php?c=User&m=register_form');
-// } else {
-//     (new $controller)->$method();
-// }
-// // session_destroy();
 session_start();
 error_reporting(~E_NOTICE);
 

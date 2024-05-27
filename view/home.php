@@ -154,7 +154,8 @@
     <!-- Popular Destinations Section -->
     <section id="destinations" class="h-screen center container text-center">
         <h2 class="section-title">Destinasi Populer</h2>
-        <div class="row">
+        <!-- <h1><?php if (isset($destinasi)) echo "ada" ?></h1> -->
+        <!-- <div class="row">
             <div class="col-md-3">
                 <div class="card-custom">
                     <img src="https://source.unsplash.com/320x250/?bali" alt="Destinasi 1">
@@ -179,6 +180,22 @@
                     <span>Lombok</span>
                 </div>
             </div>
+        </div> -->
+        <div class="row">
+            <?php
+            if ($destinasi->num_rows > 0) {
+                while ($row = $destinasi->fetch_assoc()) {
+                    echo '<a href="?c=destinasi&m=detail&id=' . $row["id"] . '" class="col-md-3">';
+                    echo '<div class="card-custom">';
+                    echo '<img src="' . $row["gambar"] . '" alt="Destinasi">';
+                    echo '<span>' . $row["nama"] . '</span>';
+                    echo '</div>';
+                    echo '</a>';
+                }
+            } else {
+                echo '<p class="text-center">Tidak ada destinasi wisata yang tersedia.</p>';
+            }
+            ?>
         </div>
     </section>
 
@@ -186,7 +203,8 @@
     <section id="products" class="h-screen center bg-light py-5 text-center">
         <div class="container">
             <h2 class="section-title">Produk Kreatif Populer</h2>
-            <div class="row">
+            <!-- <h1><?php if (isset($produk)) echo "ada" ?></h1> -->
+            <!-- <div class="row">
                 <div class="col-md-3">
                     <div class="card-produk">
                         <img src="https://source.unsplash.com/1600x900/?batik" alt="Produk 1">
@@ -211,9 +229,29 @@
                         <span>Produk Fashion</span>
                     </div>
                 </div>
+            </div> -->
+            <div class="row">
+                <?php
+                if ($produk->num_rows > 0) {
+                    while ($row = $produk->fetch_assoc()) {
+                ?>
+                        <a href="?c=produk&m=detail&id=<?php echo $row["id"]; ?>" class="col-md-3">
+                            <div class="card-custom">
+                                <img src="<?php echo $row["gambar"]; ?>" alt="Destinasi">
+                                <span><?php echo $row["nama"]; ?></span>
+                            </div>
+                        </a>
+                <?php
+                    }
+                } else {
+                    echo '<p class="text-center">Tidak ada destinasi wisata yang tersedia.</p>';
+                }
+                ?>
             </div>
         </div>
     </section>
+
+
     <?php include 'footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
