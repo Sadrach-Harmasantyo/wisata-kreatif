@@ -80,7 +80,8 @@ class Destinasi extends Controller
 
         $imagePath = "";
 
-        $uploadDir = 'uploads/';
+        $uploadDir = 'uploads/destinasi/';
+
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
@@ -174,7 +175,12 @@ class Destinasi extends Controller
         $currentImagePath = $destinasi->gambar;
 
         if (isset($_FILES['upload_gambar']) && $_FILES['upload_gambar']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'uploads/';
+            $uploadDir = 'uploads/destinasi/';
+
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
             $uploadFile = $uploadDir . basename($_FILES['upload_gambar']['name']);
 
             if (move_uploaded_file($_FILES['upload_gambar']['tmp_name'], $uploadFile)) {

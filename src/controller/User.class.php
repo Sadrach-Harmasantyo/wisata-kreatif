@@ -43,6 +43,7 @@ class User extends Controller
         session_start();
         session_destroy();
         header('Location: index.php');
+        exit;
     }
 
     public function profile()
@@ -90,7 +91,13 @@ class User extends Controller
 
         // Handle file upload
         if (isset($_FILES['upload_gambar']) && $_FILES['upload_gambar']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'uploads/';
+            $uploadDir = 'uploads/users/';
+
+            // Create the users directory if it doesn't exist
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
             $uploadFile = $uploadDir . basename($_FILES['upload_gambar']['name']);
             if (move_uploaded_file($_FILES['upload_gambar']['tmp_name'], $uploadFile)) {
                 // Hapus gambar lama jika berbeda dengan yang baru

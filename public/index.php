@@ -1,4 +1,5 @@
 <?php
+//npx tailwindcss -i ./src/styles/input.css -o ./public/styles/output.css --watch  
 session_start();
 error_reporting(~E_NOTICE);
 

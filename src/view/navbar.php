@@ -59,7 +59,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="?=User&m=logout">Logout</a></li>
+                                <li><a class="dropdown-item" href="?c=User&m=logout">Logout</a></li>
                             </ul>
                         </li>
                     <?php else : ?>
