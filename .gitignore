@@ -1,0 +1,8 @@
+# Node modules
+node_modules/
+
+# Folder uploads
+public/uploads/
+
+# Output CSS dari Tailwind CLI
+public/styles/output.css

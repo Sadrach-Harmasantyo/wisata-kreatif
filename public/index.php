@@ -7,10 +7,10 @@ $controller = $_GET['c'] ?? 'Home';
 // 'index' is the default method 
 $method = $_GET['m'] ?? 'index';
 
-include_once "controller/Controller.class.php";
+include_once __DIR__ . '/../src/controller/Controller.class.php';
 
 // Ensure the requested controller class file is included
-$controllerFile = "controller/$controller.class.php";
+$controllerFile = __DIR__ . '/../src/controller/' . $controller . '.class.php';
 if (file_exists($controllerFile)) {
     include_once $controllerFile;
 } else {
@@ -29,6 +29,4 @@ if (class_exists($controller)) {
 } else {
     die("Controller class not found.");
 }
-
-
-
+?>
