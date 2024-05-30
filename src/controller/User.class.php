@@ -20,7 +20,10 @@ class User extends Controller
             $_SESSION['role'] = $user->role;
             header('Location: index.php');
         } else {
-            echo "Invalid login credentials.";
+            // $error_message = "Invalid login credentials.";
+            // echo "Invalid login credentials.";
+            $_SESSION['error_message'] = 'Invalid login credentials.';
+            header('Location: index.php?c=User&m=login_form');
         }
     }
 
@@ -34,8 +37,15 @@ class User extends Controller
         $userModel = $this->loadModel('UserModel');
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $userModel->insert($username, $password);
-        header('Location: index.php?c=User&m=login_form');
+        $user = $userModel->getByUsername($username)->fetch_object();
+
+        if ($user) {
+            $_SESSION['error_message'] = 'Username has been taken. Please try another username.';
+            header('Location: index.php?c=User&m=register_form');
+        } else {
+            $userModel->insert($username, $password);
+            header('Location: index.php?c=User&m=login_form');
+        }
     }
 
     public function logout()

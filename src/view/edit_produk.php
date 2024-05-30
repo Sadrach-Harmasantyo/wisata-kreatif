@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/MVC2/public/assets/logo.png">
     <title>Edit Produk</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -42,11 +43,39 @@
             </div>
             <button type="submit" class="btn btn-primary" value="Update">Simpan Perubahan</button>
         </form>
-        <form action="?c=Produk&m=delete" method="post" enctype="multipart/form-data">
+        <!-- <form action="?c=Produk&m=delete" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $produk->id; ?>">
             <input class="btn btn-danger" type="submit" value="Delete">
-        </form>
+        </form> -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#konfirmasiHapus">
+            Delete
+        </button>
     </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="konfirmasiHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus produk ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <form action="?c=Produk&m=delete" method="post">
+                        <input type="hidden" name="id" value="<?php echo $produk->id; ?>">
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

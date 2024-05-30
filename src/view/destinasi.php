@@ -1,129 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/MVC2/public/assets/logo.png">
     <title>Destinasi Wisata</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .hero {
-            background: url('https://source.unsplash.com/1600x900/?bali') no-repeat center center;
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 100px 0;
-        }
-        #home {
-            background-color: lightgray;
-        }
-        .h-screen {
-            height: 100vh;
-        }
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-        }
-        .card-body {
-            height: 150px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        .card-body p {
-            margin-bottom: 0;
-        }
-        .card-footer {
-            background-color: #f8f9fa;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
+
 <body>
     <?php include 'navbar.php'; ?>
-    <div id="home" class="h-screen hero d-flex flex-column justify-content-center align-items-center">
-        <h1 class="display-4 fw-bold">Wisata Destinasi Indonesia</h1>
-    </div>
-    <div class="h-screen container mt-5">
-        <h2 class="text-center mb-4">Destinasi Wisata Kreatif di Indonesia</h2>
-        <!-- Formulir Pencarian -->
-        <form class="form-inline mb-4">
-            <input class="form-control mr-sm-2 w-100" type="search" placeholder="Cari destinasi..." aria-label="Search" id="search">
-            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="button">Cari</button> -->
-        </form>
-        <a class="btn btn-primary mb-4" href="?c=Destinasi&m=create_form">Tambah Destinasi</a>
-        <div id="destinasi-list" class="d-flex flex-wrap gap-4">
-            <!-- Konten hasil pencarian akan muncul di sini -->
-            <?php
-            if (!$destinasi->num_rows) {
-                echo '<p class="text-center">Tidak ada destinasi wisata yang tersedia.</p>';
-            } else {
-                while ($row = $destinasi->fetch_object()) {
-                    echo "
-                <div class='card w-25'>
-                    <img src='$row->gambar' class='card-img-top' alt='$row->gambar'>
-                    <div class='card-body'>
-                        <h5 class='card-title'>$row->nama</h5>
-                        <p class='card-text'>" . implode(' ', array_slice(explode(' ', $row->deskripsi), 0, 10)) . "...</p>
-                        <p class='card-text'>Alamat : $row->alamat</p>
-                    </div>
-                    <div class='card-footer'>
-                        <a href='?c=destinasi&m=detail&id=$row->id' class='btn btn-primary'>Lihat Detail</a>
-                    </div>
-                </div>";
-                }
-            }
-            ?>
+
+    <!-- Hero section -->
+    <section class="bg-white min-h-screen flex items-center">
+        <img src="https://v1.indonesia.travel/content/dam/indtravelrevamp/id-id/destinasi/labuan-bajo/header.jpg" class="object-cover object-center absolute z-10 block w-full min-h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        <div class="z-20 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+            <h1 class="mb-4 text-4xl font-bold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Destinasi Wisata Indonesia</h1>
         </div>
-    </div>
+    </section>
+
+    <!-- Destinasi Area -->
+    <section class="min-h-screen bg-white">
+        <div class="max-w-[1150px] mx-auto mt-10 flex flex-col gap-5 px-5">
+            <h2 class="text-center text-4xl font-bold">Destinasi Wisata di Indonesia</h2>
+
+            <form class="flex items-center w-full mx-auto">
+                <label for="simple-search" class="sr-only">Search</label>
+                <div class="relative w-full">
+                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari Destinasi..." required />
+                </div>
+                <!-- <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button> -->
+            </form>
+
+            <!-- Tambah Destinasi -->
+            <?php if ($_SESSION['role'] === 'admin') : ?>
+                <a class="w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5" href="?c=Destinasi&m=create_form">Tambah Destinasi</a>
+            <?php endif; ?>
+
+            <!-- List Destinasi -->
+            <div id="destinasi-list" class="w-full flex flex-wrap gap-5 mb-10">
+                <!-- Konten hasil pencarian akan muncul di sini -->
+                <?php
+                if ($destinasi->num_rows > 0) :
+                    while ($row = $destinasi->fetch_assoc()) : ?>
+                        <div class="w-full border-[3px] border-slate-300 rounded-xl flex h-56 overflow-hidden hover:border-blue-700 duration-300">
+                            <img src="<?php echo $row["gambar"]; ?>" alt="..." class="w-[25%] object-cover object-center">
+                            <div class="w-[75%] flex py-5">
+                                <div class="w-[75%] px-10 flex flex-col gap-3">
+                                    <h1 class="text-4xl font-bold"><?php echo $row["nama"]; ?></h1>
+                                    <p class="text-justify"><?php echo implode(' ', array_slice(explode(' ', $row["deskripsi"]), 0, 30)); ?>...</p>
+                                </div>
+                                <div class="w-[25%] border-l-2 border-slate-300 p-5 flex justify-center items-center">
+                                    <a href="?c=Destinasi&m=detail&id=<?= $row["id"] ?>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                        Detail
+                                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile;
+                else : ?>
+                    <p class="text-center font-semibold text-xl">Tidak ada destinasi wisata yang tersedia.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
     <?php include 'footer.php'; ?>
-    <!-- Include jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#search').on('keyup', function() {
-                let query = $(this).val();
-                $.ajax({
-                    type: 'POST',
-                    url: '?c=Destinasi&m=search',
-                    data: { query: query },
-                    dataType: 'json',
-                    success: function(response) {
-                        let destinasiList = $('#destinasi-list');
-                        destinasiList.empty();
-                        if (response.length === 0) {
-                            destinasiList.append('<p class="text-center">Tidak ada destinasi wisata yang tersedia.</p>');
-                        } else {
-                            response.forEach(function(row) {
-                                let card = `
-                                    <div class='card w-25'>
-                                        <img src='${row.gambar}' class='card-img-top' alt='${row.nama}'>
-                                        <div class='card-body'>
-                                            <h5 class='card-title'>${row.nama}</h5>
-                                            <p class='card-text'>${row.deskripsi.split(' ').slice(0, 10).join(' ')}...</p>
-                                            <p class='card-text'>Alamat : ${row.alamat}</p>
-                                        </div>
-                                        <div class='card-footer'>
-                                            <a href='?c=destinasi&m=detail&id=${row.id}' class='btn btn-primary'>Lihat Detail</a>
-                                        </div>
-                                    </div>`;
-                                destinasiList.append(card);
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("simple-search");
+
+            searchInput.addEventListener("input", function() {
+                const query = searchInput.value;
+
+                fetch("?c=Destinasi&m=search", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            query: query
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const destinasiList = document.getElementById("destinasi-list");
+                        destinasiList.innerHTML = "";
+
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const destinasiItem = `
+                        <div class="w-full border-[3px] border-slate-300 rounded-xl flex h-56 overflow-hidden hover:border-blue-700 duration-300">
+                            <img src="${item.gambar}" alt="..." class="w-[25%] object-cover object-center">
+                            <div class="w-[75%] flex py-5">
+                                <div class="w-[75%] px-10 flex flex-col gap-3">
+                                    <h1 class="text-4xl font-bold">${item.nama}</h1>
+                                    <p class="text-justify">${truncateDescription(item.deskripsi, 30)}...</p>
+                                </div>
+                                <div class="w-[25%] border-l-2 border-slate-300 p-5 flex justify-center items-center">
+                                    <a href="?c=Destinasi&m=detail&id=${item.id}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                        Detail
+                                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                                destinasiList.insertAdjacentHTML('beforeend', destinasiItem);
                             });
+                        } else {
+                            destinasiList.innerHTML = '<p class="text-center font-semibold text-xl">Tidak ada destinasi wisata yang tersedia.</p>';
                         }
-                    },
-                    error: function() {
-                        console.error('Error fetching data');
-                    }
-                });
+                    })
+                    .catch(error => console.error("Error fetching search results:", error));
             });
         });
+
+        function truncateDescription(description, maxLength) {
+            const words = description.split(' ');
+            const truncatedWords = words.slice(0, maxLength);
+            return truncatedWords.join(' ');
+        }
     </script>
+
 </body>
+
 </html>

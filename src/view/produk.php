@@ -4,149 +4,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinasi Wisata</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .hero {
-            background: url("https://source.unsplash.com/1600x900/?batik") no-repeat center center;
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 100px 0;
-        }
+    <link rel="icon" href="/MVC2/public/assets/logo.png">
+    <title>Produk Kreatif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
-        #home {
-            background-color: lightgray;
-        }
-
-        .h-screen {
-            height: 100vh;
-        }
-
-        .produk {
-            margin-top: 100px;
-        }
-
-        .navbar-custom {
-            border-bottom: 1px solid black;
-            height: 10vh;
-        }
-
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-body {
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .card-body p {
-            margin-bottom: 0;
-        }
-
-        .card-footer {
-            background-color: #f8f9fa;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .kategori {
-            padding: 4px 12px;
-            background-color: lightgray;
-            color: black;
-            border-radius: 16px;
-            width: fit-content;
-        }
-
-        .harga {
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
 
     <?php include 'navbar.php'; ?>
 
-    <div id="home" class="h-screen hero d-flex flex-column justify-content-center align-items-center">
-        <h1 class="display-4 fw-bold">Produk Kreatif Indonesia</h1>
-    </div>
-
-    <div id="produk-list" class="h-screen container produk">
-        <h2 class="text-center mb-4">Produk Kreatif di Indonesia</h2>
-        <!-- <form method="GET" action="?c=Produk&m=search" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Cari produk...">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                </div>
-            </div>
-        </form> -->
-        <!-- Formulir Pencarian -->
-        <form id="search-form" class="form-inline mb-4" method="GET" action="">
-            <input type="hidden" name="c" value="Produk">
-            <input type="hidden" name="m" value="index">
-            <input class="form-control mr-sm-2 w-75" type="search" placeholder="Cari destinasi..." aria-label="Search" name="search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
-        </form>
-        <a class="btn btn-primary" href="?c=Produk&m=create_form">Tambah Produk</a>
-        <div class="d-flex flex-wrap gap-4">
-            <?php
-            if (!$produk->num_rows) {
-                echo '<p class="text-center">Tidak ada produk yang tersedia.</p>';
-            } else {
-                while ($row = $produk->fetch_object()) {
-                    echo "
-                <div class='card w-25'>
-                    <img src='$row->gambar' class='card-img-top' alt='$row->gambar'>
-                    <div class='card-body'>
-                        <h5 class='card-title'>$row->nama</h5>
-                        <p class='kategori'>$row->kategori</p>
-                        <p class='card-text text-justify'>" . implode(' ', array_slice(explode(' ', $row->deskripsi), 0, 10)) . "...</p>
-                        <p class='card-text harga'>Rp. $row->harga</p>
-                    </div>
-                    <div class='card-footer'>
-                        <a href='?c=produk&m=detail&id=$row->id' class='btn btn-primary'>Lihat Detail</a>
-                    </div>
-                </div>";
-                }
-            }
-            ?>
+    <!-- Hero Section -->
+    <section class="bg-white min-h-screen overflow-hidden flex items-center">
+        <img src="https://images.unsplash.com/photo-1543874911-320748e4c335?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="object-cover object-center absolute z-10 block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        <div class="z-20 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+            <h1 class="mb-4 text-4xl font-bold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Produk Kreatif Indonesia</h1>
         </div>
-    </div>
+    </section>
+
+    <!-- Produk Section -->
+    <section class="min-h-screen bg-white">
+        <div class="max-w-[1150px] mx-auto mt-10 flex flex-col gap-5 px-5">
+            <h2 class="text-center text-4xl font-bold">Produk Kreatif di Indonesia</h2>
+
+            <form class="flex items-center w-full mx-auto">
+                <label for="simple-search" class="sr-only">Search</label>
+                <div class="relative w-full">
+                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Produk yang Anda Cari..." required />
+                </div>
+                <!-- <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button> -->
+            </form>
+
+            <!-- Tambah Produk -->
+            <?php if ($_SESSION['role'] === 'admin') : ?>
+                <a class="w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5" href="?c=Produk&m=create_form">Tambah Produk</a>
+            <?php endif; ?>
+
+            <!-- List Produk -->
+            <div id="produk-list" class="w-full flex flex-wrap gap-3 mt-5">
+                <?php
+                if ($produk->num_rows > 0) :
+                    while ($row = $produk->fetch_assoc()) : ?>
+                        <div class="w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <a href="?c=produk&m=detail&id=<?= $row["id"] ?>">
+                                <img class="relative rounded-t-lg w-full h-52 object-cover" src="<?= $row["gambar"] ?>" alt="Produk" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="?c=produk&m=detail&id=<?= $row["id"] ?>">
+                                    <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><?= $row["nama"] ?></h5>
+                                </a>
+
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800"><?= $row["kategori"] ?></span>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">Rp. <?= number_format($row["harga"], 0, ',', '.') ?></span>
+                                    <a href="?c=produk&m=detail&id=<?= $row["id"] ?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile;
+                else : ?>
+                    <p class="text-center font-semibold text-xl">Tidak ada poduk kreatif yang tersedia</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
 
     <?php include 'footer.php'; ?>
 
     <!-- Include Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
-        document.getElementById('search-form').addEventListener('submit', function() {
-            setTimeout(function() {
-                window.location.hash = '#produk-list';
-            }, 500);
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("simple-search");
+
+            searchInput.addEventListener("input", function() {
+                const query = searchInput.value;
+
+                fetch("?c=Produk&m=search", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            query: query
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const produkList = document.getElementById("produk-list");
+                        produkList.innerHTML = "";
+
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const produkItem = `<div class="w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <a href="?c=produk&m=detail&id=${item.id}">
+                                <img class="rounded-t-lg w-full h-52 object-cover" src="${item.gambar}" alt="Produk" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="?c=produk&m=detail&id=${item.id}">
+                                    <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${item.nama}</h5>
+                                </a>
+
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800">${item.kategori}</span>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">Rp. ${formatRupiah(item.harga)}</span>
+                                    <a href="?c=produk&m=detail&id=${item.id}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                                produkList.insertAdjacentHTML('beforeend', produkItem);
+                            });
+                        } else {
+                            produkList.innerHTML = '<p class="text-center font-semibold text-xl">Tidak ada destinasi wisata yang tersedia.</p>';
+                        }
+                    })
+                    .catch(error => console.error("Error fetching search results:", error));
+            });
         });
-        // Check if there is a hash in the URL
-        if (window.location.hash) {
-            var hash = window.location.hash;
-            // Check if the element with the hash ID exists
-            var element = document.querySelector(hash);
-            if (element) {
-                // Scroll to the element with the hash ID
-                element.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
+
+        function formatRupiah(angka) {
+            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
     </script>
 

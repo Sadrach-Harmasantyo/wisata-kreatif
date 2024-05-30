@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar with Bootstrap</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Navbar</title>
+    <!-- <link href="/mvc2/public/styles/output.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <style>
-        .w-full {
-            width: 100%;
-        }
-
         #navbar-custom {
-            height: 15vh;
             background-color: transparent;
+            height: 12vh;
             transition: all 0.3s ease;
         }
 
@@ -22,61 +19,65 @@
             background-color: rgba(0, 0, 0, 0.5);
             height: 10vh;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav id="navbar-custom" class="w-full fixed-top navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="text-white fw-bold navbar-brand" href="index.php">Wisata Kreatif</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    <nav id="navbar-custom" class="z-50 fixed w-full bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div class="max-w-[1150px] flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="?c=Home&m=index" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="/MVC2/public/assets/logo.png" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Wisata Kreatif</span>
+            </a>
+            <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden" aria-controls="navbar-dropdown" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto fw-bold">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="?c=Destinasi&m=index">Destinasi</a>
+
+            <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 bg-white md:bg-transparent rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0">
+                    <li>
+                        <a href="?c=Destinasi&m=index" class="block py-2 px-3 text-black md:text-white rounded md:p-0" aria-current="page">Destinasi</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="?c=Produk&m=index">Produk</a>
+                    <li>
+                        <a href="?c=Produk&m=index" class="block py-2 px-3 text-black md:text-white rounded md:p-0" aria-current="page">Produk</a>
                     </li>
                     <?php if (isset($_SESSION['user_id'])) : ?>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link text-white" href="?c=Post&m=create_form">Create Post</a>
-                        </li> -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profil
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="?c=User&m=profile">Lihat Profil</a></li>
-                                <li><a class="dropdown-item"><?php echo $_SESSION['username'] ?></a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="?c=User&m=logout">Logout</a></li>
-                            </ul>
+                        <li>
+                            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-black md:text-white rounded md:border-0 md:p-0 md:w-auto">Profil <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg></button>
+                            <!-- Dropdown menu -->
+                            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                <ul class="py-2 text-sm" aria-labelledby="dropdownLargeButton">
+                                    <li>
+                                        <a href="?c=User&m=profile" class="block px-4 py-2 text-black">Lihat Profil</a>
+                                    </li>
+                                    <li class="block px-4 py-2 text-black">
+                                        <?php echo $_SESSION['username'] ?>
+                                    </li>
+                                </ul>
+                                <div class="py-1">
+                                    <a href="?c=User&m=logout" class="block text-sm px-4 py-2 text-black">Logout</a>
+                                </div>
+                            </div>
                         </li>
                     <?php else : ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="?c=User&m=login_form">Login</a>
+                        <li>
+                            <a href="?c=User&m=login_form" class="block py-2 px-3 text-black md:text-white rounded md:bg-transparent md:p-0" aria-current="page">Login</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link text-white" href="?c=User&m=register_form">Register</a>
-                        </li> -->
-                    <?php endif; ?>
+                    <?php endif ?>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+    <!-- <script src="/mvc2/node_modules/flowbite/dist/flowbite.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
         window.addEventListener('scroll', function() {
             var navbar = document.getElementById('navbar-custom');
@@ -88,6 +89,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

@@ -1,14 +1,12 @@
-<?php include 'navbar.php'; ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/MVC2/public/assets/logo.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Tambah Destinasi</title>
+    <title>Tambah Produk</title>
 </head>
 
 <body>

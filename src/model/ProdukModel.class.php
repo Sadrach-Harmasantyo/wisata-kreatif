@@ -7,9 +7,9 @@ class ProdukModel extends Model
         return $this->mysqli->query($sql);
     }
 
-    public function search($query)
+    public function searchProduk($search)
     {
-        $sql = "SELECT * FROM produk WHERE nama LIKE '%$query%' OR deskripsi LIKE '%$query%' OR kategori LIKE '%$query%'";
+        $sql = "SELECT * FROM produk WHERE nama LIKE '%$search%' OR deskripsi LIKE '%$search%' OR kategori LIKE '%$search%' OR harga LIKE '%$search%' ORDER BY id DESC";
         return $this->mysqli->query($sql);
     }
 
@@ -34,8 +34,6 @@ class ProdukModel extends Model
 
     public function update($id, $nama, $deskripsi, $kategori, $harga, $gambar = null)
     {
-        //   $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
-        //   $this->mysqli->query($sql);
         if ($gambar) {
             $sql = "UPDATE produk SET nama = '$nama', deskripsi = '$deskripsi', kategori = '$kategori', harga = '$harga', gambar='$gambar' WHERE id = '$id'";
         } else {

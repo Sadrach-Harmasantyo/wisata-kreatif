@@ -7,38 +7,29 @@ class Destinasi extends Controller
         $destinasiModel = $this->loadModel('DestinasiModel');
         $destinasi = $destinasiModel->getAll();
         $this->loadView('destinasi', ['destinasi' => $destinasi]);
-
-
-        // $destinasiModel = $this->loadModel('DestinasiModel');
-
-        // // Ambil parameter pencarian dari URL
-        // $search = isset($_GET['search']) ? addslashes($_GET['search']) : '';
-
-        // if ($search) {
-        //     $destinasi = $destinasiModel->searchDestinasi($search);
-        // } else {
-        //     $destinasi = $destinasiModel->getAll();
-        // }
-
-        // $this->loadView('destinasi', ['destinasi' => $destinasi]);
     }
 
     public function search()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
-            $search = addslashes($_POST['query']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $search = addslashes($input['query']);
+
             $destinasiModel = $this->loadModel('DestinasiModel');
             $results = $destinasiModel->searchDestinasi($search);
+
             $data = [];
             while ($row = $results->fetch_object()) {
                 $data[] = $row;
             }
+
             echo json_encode($data);
         } else {
             http_response_code(400);
             echo json_encode(['message' => 'Invalid request']);
         }
     }
+
 
     public function detail()
     {

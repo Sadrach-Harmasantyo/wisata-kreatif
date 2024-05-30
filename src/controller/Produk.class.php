@@ -4,31 +4,32 @@ class Produk extends Controller
 
     public function index()
     {
-        // $produkModel = $this->loadModel('ProdukModel');
-        // $produk = $produkModel->getAll();
-        // $this->loadView('produk', ['produk' => $produk]);
-
         $produkModel = $this->loadModel('ProdukModel');
-
-        // Ambil parameter pencarian dari URL
-        $search = isset($_GET['search']) ? addslashes($_GET['search']) : '';
-
-        if ($search) {
-            $produk = $produkModel->search($search);
-        } else {
-            $produk = $produkModel->getAll();
-        }
-
+        $produk = $produkModel->getAll();
         $this->loadView('produk', ['produk' => $produk]);
     }
 
-    // public function search()
-    // {
-    //     $query = isset($_GET['q']) ? addslashes($_GET['q']) : '';
-    //     $produkModel = $this->loadModel('ProdukModel');
-    //     $produk = $produkModel->search($query);
-    //     $this->loadView('produk', ['produk' => $produk]);
-    // }
+    public function search()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $search = addslashes($input['query']);
+
+            $produkModel = $this->loadModel('ProdukModel');
+            $results = $produkModel->searchProduk($search);
+
+            $data = [];
+            while ($row = $results->fetch_object()) {
+                $data[] = $row;
+            }
+
+            echo json_encode($data);
+        } else {
+            http_response_code(400);
+            echo json_encode(['message' => 'Invalid request']);
+        }
+    }
+
 
 
     public function detail()

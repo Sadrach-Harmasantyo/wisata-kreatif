@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Destinasi Wisata - Bali</title>
+    <link rel="icon" href="/MVC2/public/assets/logo.png">
+    <title>Edit Destinasi Wisata</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -58,14 +59,17 @@
             </div>
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </form>
-        <form action="?c=Destinasi&m=delete" method="post" enctype="multipart/form-data">
+        <!-- <form action="?c=Destinasi&m=delete" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $destinasi->id; ?>">
             <input class="btn btn-danger" type="submit" value="Delete">
-        </form>
+        </form> -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#konfirmasiHapus">
+            Delete
+        </button>
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
-    <!-- <div class="modal fade" id="konfirmasiHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="konfirmasiHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -79,14 +83,15 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <form action="proses_hapus.php" method="POST">
-                        <input type="hidden" name="namaDestinasi" value="Pulau Bali">
+                    <form action="?c=Destinasi&m=delete" method="post">
+                        <input type="hidden" name="id" value="<?php echo $destinasi->id; ?>">
                         <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
