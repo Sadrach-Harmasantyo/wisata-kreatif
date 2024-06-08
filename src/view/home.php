@@ -168,7 +168,7 @@
                     while ($row = $destinasi->fetch_assoc()) : ?>
                         <a href="?c=destinasi&m=detail&id=<?= $row["id"] ?>" class="relative w-52 h-64 overflow-hidden rounded-xl">
                             <img src="<?= $row["gambar"] ?>" alt="Destinasi" class="relative object-cover w-full h-full hover:scale-125 duration-300 ease-in-out" loading="lazy">
-                            <span class="w-fit absolute z-10 m-auto left-0 right-0 bottom-5 text-slate-50 text-xl font-bold"><?= $row["nama"] ?></span>
+                            <span class="w-fit text-center absolute z-10 m-auto left-0 right-0 bottom-5 text-slate-50 text-xl font-bold"><?= $row["nama"] ?></span>
                         </a>
                     <?php endwhile;
                 else : ?>
